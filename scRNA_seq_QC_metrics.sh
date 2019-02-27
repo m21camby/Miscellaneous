@@ -15,14 +15,14 @@ ARG1=$1
 ##################
 # 1. Flagstats
 ##################
-echo "1st Flag stats of BAM file"
+echo "1st. Flag stats of BAM file"
 samtools flagstat my_clean_$ARG1'.bam'
 
 #########################
 # 2. MAPQ quality stats
 #########################
 # This stats can identify how many uniquely mapped reads
-echo "2nd MAPQ stats"
+echo "2nd. MAPQ stats"
 samtools view my_clean_$ARG1'.bam' |awk '{h[$5]++};END { for(k in h) print k, h[k]}' > $ARG1'MAPQ.txt'
 cat $ARG1'MAPQ.txt'
 
@@ -60,7 +60,7 @@ for file in *.summary.txt
 do
 	PCR=`awk 'NR > 7 {print}' $file |awk '{print($2/$3)}'|sort -n| awk ' { a[i++]=$1; } END { print a[int(i/2)]; }'`
 	echo $file
-	echo "PCR exon only: " $PCR
+	echo "PCR: " $PCR
 done
 
 # Remove unnecssary MAPQ file
